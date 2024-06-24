@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ILogItem } from "../indes";
+import { ILogItem } from "..";
 
 type loggerState = {
   logArray: ILogItem;

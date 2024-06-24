@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ITask } from "../indes";
+import { ITask } from "..";
 
 type TModalState = {
   boardId: string;
