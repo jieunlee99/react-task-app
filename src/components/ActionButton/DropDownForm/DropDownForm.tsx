@@ -1,11 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { ChangeEvent, FC, useState } from "react";
 import { FiX } from "react-icons/fi";
 import { useTypedDispatch } from "../../../hooks/redux";
 import { addList, addTask } from "../../../store/slices/boardsSlice";
 import { v4 } from "uuid";
 import { addLog } from "../../../store/slices/loggerSlices";
-import { button, buttons, close, input, listForm, taskForm } from "./DropDownForm.css";
+import {
+  button,
+  buttons,
+  close,
+  input,
+  listForm,
+  taskForm,
+} from "./DropDownForm.css";
 
 type TDropDownFormProps = {
   boardId: string;
