@@ -14,7 +14,7 @@ type TTaskProps = {
 const Task: FC<TTaskProps> = ({
   index,
   id,
-  boardId,
+  // boardId,
   taskName,
   taskDescription,
 }) => {
