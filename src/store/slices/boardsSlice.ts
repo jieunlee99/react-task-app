@@ -36,6 +36,15 @@ type TDeleteBoardAction = {
   boardId: string;
 };
 
+type TSortActoin = {
+  boardIndex: number;
+  droppableIdStart: string;
+  droppableIdEnd: string;
+  droppableIndexStart: number;
+  droppableIndexEnd: number;
+  draggableId: string;
+};
+
 const initialState: TBoardsState = {
   modalActive: false,
   boardArray: [
@@ -176,6 +185,33 @@ const boardsSlice = createSlice({
           : board
       );
     },
+
+    sort: (state, { payload }: PayloadAction<TSortActoin>) => {
+      // task의 이동이 같은 리스트일 때
+      if (payload.droppableIdStart === payload.droppableIdEnd) {
+        const list = state.boardArray[payload.boardIndex].lists.find(
+          (list) => list.listId === payload.droppableIdStart
+        );
+
+        // 변경시키는 아이템을 배열에서 지워준다.
+        // 지워진 값을 return
+        const card = list?.tasks.splice(payload.droppableIndexStart, 1);
+        list?.tasks.splice(payload.droppableIndexEnd, 0, ...card!);
+      }
+
+      // task의 이동이 서로 다른 리스트일 때
+      if (payload.droppableIdStart !== payload.droppableIdEnd) {
+        const listStart = state.boardArray[payload.boardIndex].lists.find(
+          (list) => list.listId === payload.droppableIdStart
+        );
+
+        const card = listStart?.tasks.splice(payload.droppableIndexStart, 1);
+        const listEnd = state.boardArray[payload.boardIndex].lists.find(
+          (list) => list.listId === payload.droppableIdEnd
+        );
+        listEnd?.tasks.splice(payload.droppableIndexEnd, 0, ...card!);
+      }
+    },
   },
 });
 
@@ -188,5 +224,6 @@ export const {
   setModalActive,
   updateTask,
   deleteTask,
+  sort,
 } = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;
